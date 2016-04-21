@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block main %}
-<div ng-controller="">
+<div ng-controller="emailCtrl">
     <div>
         <h1>Your Wishlist</h1>
         <br>
@@ -25,6 +25,9 @@
                         <b>Image URL:</b> <img src = "{{user_wishlist.image_url}}" alt="Photo of {{user_wishlist.title}}" />
                     </div>
                 {% endfor %}
+        </div>
+        <div>
+             <button class="btn btn-primary" ng-click="showComposePopup()">Share by Email</button>
         </div>
     </div>
 </div>

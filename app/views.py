@@ -143,9 +143,43 @@ def wishlists(id):
       print storage
       return render_template('view_wish.html',wishlist=storage)  
 
-#@app.route('/api/user/<id>/wishlist/share', method=('POST'))
-#def wishshare(id):
-#    return render_template(''):
+@app.route('/api/user/<id>/wishlist/share', methods=('POST'))
+def wish_share(id):
+        if request.methods == 'POST':
+            profile = user_profile.query.filter_by(userid=id).first()
+            email_request = request.json['email']
+            from_name = profile.firstname+" "+ profile.lastname
+            from_addr = profile.email
+            to_name =""
+            to_addr  = email_request
+            subject = "My Wishlist"
+            wishlist_link = "http://http://info3180-wishlist-sk3tchk.c9users.io/api/user/"+ id +"/wishlists"
+            msg = "Please click on the following link to preview my wishlist: " + " " + wishlist_link
+            message = """From: {} <{}>
+    To: {} <{}>
+    Subject: {}
+
+{}
+
+        """ 
+        messagetosend = message.format(
+                             from_name,
+                             from_addr,
+                             to_name,
+                             to_addr,
+                             subject,
+                             msg)
+    # Credentials (if needed)
+        username = 'sk3tchk@gmail.com'
+        password = 'xjztrvcfcricnqmj'
+    # The actual mail send
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(username,password)
+        server.sendmail(from_addr, to_addr, messagetosend)
+        server.quit()
+        return jsonify(message="Email was successfully sent!!!")
+    
     
 @app.route('/api/thumbnail/process/<wishid>')
 @login_required

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="modal" ng-controller="emailCtlr">
+    <div class="modal-header">
+        <h3>Share My Wishlist</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <input type="text" placeholder="To" style="width:95%;"
+                ng-model="composeEmail.to"><br />
+            <input type="text" placeholder="Subject" style="width:95%;"
+                ng-model="composeEmail.subject"><br />
+            <textarea style="width:95%;" rows="10" 
+                ng-model="composeEmail.body"></textarea>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn"ng-click="closeComposePopup()">Close</a>
+        <a href="#" class="btn btn-primary" ng-click="sendEmail()">Send</a>
+    </div>
+</div>
+
+{% endblock %}

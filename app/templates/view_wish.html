@@ -1,9 +1,15 @@
 {% extends 'base.html'%}
 
 {% block main %}
-<div ng-controller="emailCtrl">
+<div ng-controller="emailController">
     <div>
         <h1>Your Wishlist</h1>
+        {% raw %}
+        <div class="alert alert-success" ng-show="emailSent">
+            Your Wishlist was successfully shared!!!
+        </div>
+        
+        {% endraw %}
         <br>
         <div>
             <form action="" method="POST">
@@ -27,14 +33,30 @@
                 {% endfor %}
         </div>
         <div>
-             <button class="btn btn-primary" ng-click="showComposePopup()">Share by Email</button>
-        </div>
+             <button type= "button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Share by Email</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Share Wishlist</h4>
+      </div>
+      <div class="modal-body">
+          <form>
+              <input type="text" placeholder="Enter Email Address" ng-model = "email" ><br />
+          
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" ng-click = "sendEmail()" class="btn btn-primary">Send</button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
-{% endblock %}
-
-{% block javascripts %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/bower_components/angular/angular.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/bower_components/angular-route/angular-route.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</div>
+</div>
+</div>
 {% endblock %}

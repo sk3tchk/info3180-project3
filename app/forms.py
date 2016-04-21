@@ -1,7 +1,7 @@
 import random
 from random import randint
 from flask.ext.wtf import Form
-from wtforms.fields import TextField, FileField,IntegerField,SelectField,SubmitField,PasswordField,StringField
+from wtforms.fields import TextField, FileField, IntegerField, SelectField, SubmitField, PasswordField, StringField
 from wtforms.validators import Required,ValidationError,DataRequired,Email,Length
 from flask_wtf.file import FileField,FileAllowed,FileRequired
 
@@ -22,4 +22,4 @@ class WishForm(Form):
     title = TextField('Title')
     description = TextField('Description')
     description_url = TextField('Reference')
-
+    

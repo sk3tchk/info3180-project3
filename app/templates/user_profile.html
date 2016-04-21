@@ -28,10 +28,14 @@ body{
         <h3>Welcome {{profile.firstname}} {{profile.lastname}}</h3>
         <h4>Please select an option below: </h4>
         <a href="/api/user/{{profile.id}}/wishlist">Add a wish to your wishlist.</a><br><br>
-        <a href="/api/user/{{profile.id}}/wishlist">Remove a wish from your wishlis.</a><br><br>
-        <a href="/api/user/{{profile.id}}/wishlist">View your wishlist.</a><br><br>
+        <a href="/api/user/{{profile.id}}/wishlist">Remove a wish from your wishlist.</a><br><br>
+        <a href="/api/user/{{profile.id}}/wishlists">View your wishlist.</a><br><br>
       
         <a href="{{ url_for('logout') }}">Logout</a></li>
     </div>
+    
+    <script type="text/javascript">
+        localStorage.setItem('userid', {{ profile.id }});
+    </script>
 </div>
 {% endblock %}

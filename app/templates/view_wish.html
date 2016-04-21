@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+
+{% block main %}
+<div ng-controller="">
+    <div>
+        <h1>Your Wishlist</h1>
+        <br>
+        <div>
+            <form action="" method="POST">
+                <button type="submit" class="btn btn-success">JSON THIS!!!</button>
+            </form>
+        </div>
+        <div>
+                {% for user_wishlist in wishlist %}
+                    <div>
+                        <b>Title: </b> {{user_wishlist.title}}
+                    </div>
+                     <div>
+                         <b>Description: </b> {{user_wishlist.description}}
+                    </div>
+                     <div>
+                         <b>URL: </b> {{user_wishlist.description_url}}
+                    </div>
+                    <div> 
+                        <b>Image URL:</b> <img src = "{{user_wishlist.image_url}}" alt="Photo of {{user_wishlist.title}}" />
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/bower_components/angular/angular.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/bower_components/angular-route/angular-route.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

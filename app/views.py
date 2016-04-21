@@ -22,6 +22,7 @@ import os
 import random
 import json
 import requests
+import smtplib
 
 
 ###
@@ -118,7 +119,8 @@ def wishlist(id):
         title = request.form['title']
         description = request.form['description']
         url = request.form['url']
-        newWish = user_wishlist(userid=id, title=title, description=description, description_url=url)
+        image_url = ""
+        newWish = user_wishlist(userid=id, title=title, description=description, description_url=url, image_url = image_url)
         db.session.add(newWish)
         db.session.commit()
         profilefilter = user_wishlist.query.filter_by(wishid=newWish.wishid).first()
@@ -126,6 +128,24 @@ def wishlist(id):
     form = WishForm()
     return render_template('wish_add.html',form=form,profile=profile_vars)
 
+@app.route('/api/user/<id>/wishlists', methods=('GET', 'POST'))
+def wishlists(id):
+    wishlists = user_wishlist.query.filter_by(userid=id).all()
+    storage = []
+    for users_wishlist in wishlists:
+        storage.append({'title':users_wishlist.title, 'description':users_wishlist.description, 'url':users_wishlist.description_url, 'image_url':users_wishlist.image_url})
+    
+    wishes = {'user_wishlist': storage}
+    print wishes
+    if request.method == 'POST':
+      return jsonify(wishes)
+    else:
+      print storage
+      return render_template('view_wish.html',wishlist=storage)  
+
+#@app.route('/api/user/<id>/wishlist/share', method=('POST'))
+#def wishshare(id):
+#    return render_template(''):
     
 @app.route('/api/thumbnail/process/<wishid>')
 @login_required
@@ -149,6 +169,17 @@ def image_get(wishid):
         if "sprite" not in img["src"]:
             images.append(img['src'])
     return render_template('get_image.html',images=images)
+    
+@app.route('/api/imageurl/addimage', methods=['POST'])
+def add_imageurl():
+    image_url = request.json['image_url']
+    id = request.json["item_id"]
+    
+    
+    item_wishlist = user_wishlist.query.filter_by(wishid=id).first()
+    item_wishlist.image_url = image_url
+    db.session.commit()
+    return jsonify(message="success")
 
 @app.route('/about/')
 def about():

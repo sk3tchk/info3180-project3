@@ -44,12 +44,12 @@ class user_wishlist(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.String(500))
     description_url = db.Column(db.String(500))
-    img_url = db.Column(db.String(500))
+    image_url = db.Column(db.String(500))
     
     
-    def __init__(self, userid, title, description, description_url):
+    def __init__(self, userid, title, description, description_url, image_url):
         self.userid = userid
         self.title = title
         self.description = description
         self.description_url = description_url
-        self.img_url = img_url
+        self.image_url = image_url
